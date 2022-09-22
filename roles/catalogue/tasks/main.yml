@@ -32,9 +32,13 @@
     remote_src: yes
   become_user: "{{APPUSER}}"
 
-- name: Installing nodejs packages
+# - name: Installing nodejs packages
+#   community.general.npm:
+#     path: /home/{{APPUSER}}/{{COMPONENT}}/
+
+- name: Install NodeJS packages based on package.json file 
   community.general.npm:
-    path: /home/{{APPUSER}}/{{COMPONENT}}/
+    path: /home/{{APPUSER}}/{{COMPONENT}}/  
 
 
 
