@@ -40,6 +40,18 @@
   community.general.npm:
     path: /home/{{APPUSER}}/{{COMPONENT}}/  
 
+- name: Updating systemd file
+  ansible.builtin.copy:
+    src: systemd.service
+    dest: /etc/systemd/system/{{COMPONENT}}.service
+
+- name: Starting the service
+  ansible.builtin.systemd:
+    name: catalogue
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
 
 
 
