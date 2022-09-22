@@ -10,20 +10,20 @@
     dest: /tmp
     remote_src: yes
 
-# - name: cleaning up old document
-#   ansible.builtin.file:
-#     path: /usr/share/nginx/html
-#     state: absent
+- name: cleaning up old document
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
 
-# - name: Coping frotend context to nginx path 
-#   ansible.builtin.copy:
-#     src: /tmp/frontend-main/static/
-#     dest: /usr/share/nginx/html
-#     remote_src: yes
+- name: Coping frotend context to nginx path 
+  ansible.builtin.copy:
+    src: /tmp/frontend-main/static/
+    dest: /usr/share/nginx/html
+    remote_src: yes
 
-# - name: Starting the nginx
-#   ansible.builtin.service:
-#     name: nginx
-#     state: started
-#     enabled: yes
+- name: Starting the nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
 
