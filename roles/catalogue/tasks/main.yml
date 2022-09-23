@@ -1,4 +1,4 @@
-- name: downloading nodejs repo
+- name: downloading yum repo
   ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
   
 
