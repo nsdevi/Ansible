@@ -12,7 +12,7 @@
 - name: creating user
   ansible.builtin.include_role:
     name: common
-    tasks_from: create-user.yml
+    tasks_from: create-user
 
 - name: cleaningup of old content
   ansible.builtin.file:
