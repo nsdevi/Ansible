@@ -15,7 +15,7 @@
     name: mysqld
     state: started
     enabled: yes
-    daemon_reload: yes
+
 
 # This has to fetch the password only when the default password is not changed
 
@@ -34,13 +34,14 @@
       ansible.builtin.shell: grep "temporary" /var/log/mysqld.log | head -n 1 | awk -F " " '{print $NF}'
       register: DEFAULT_ROOT_PASSWORD
 
-- name: Copy the SQL Password Command File 
-  ansible.builtin.copy: 
-    src: rootpassword.sql 
-    dest: /tmp/rootpassword.sql 
-# This task should only execture if the above task is a failure.
-- name: Changing password 
-  ansible.builtin.shell: mysql --connect-expired-password  -uroot -p"{{DEFAULT_ROOT_PASSWORD.stdout}}" < /tmp/rootpassword.sql
+    - name: Copy the SQL Password Command File 
+      ansible.builtin.copy: 
+        src: rootpassword.sql 
+        dest: /tmp/rootpassword.sql 
+    # This task should only execture if the above task is a failure.
+    - name: Changing password 
+      ansible.builtin.shell: mysql --connect-expired-password  -uroot -p"{{DEFAULT_ROOT_PASSWORD.stdout}}" < /tmp/rootpassword.sql 
+
 
 - name: Checking the validate_password plugin 
   ansible.builtin.shell: echo show plugins | mysql -uroot -pRoboShop@1 | grep validate_password 
