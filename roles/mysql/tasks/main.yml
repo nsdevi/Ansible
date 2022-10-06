@@ -7,3 +7,11 @@
   ansible.builtin.package:
     name: mysql-community-server
     state: present
+
+- name: Starting the service
+  ansible.builtin.service:
+    name: mysqld
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
