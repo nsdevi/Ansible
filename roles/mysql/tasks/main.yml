@@ -15,3 +15,19 @@
     enabled: yes
     daemon_reload: yes
 
+# This has to fetch the password only when the default password is not changed
+
+- name: Check the {{COMPONENT}} password by fetching from the logs 
+  community.mysql.mysql_info:
+    login_user: root 
+    login_password: RoboShop@1 
+  ignore_errors: yes  
+  register: mysql_stat 
+
+# This will only be executed only if the above is a failure
+- name: Reset Password 
+  when: mysql_stat.failed 
+  block: 
+    - name: Fetching password 
+      ansible.builtin.shell: grep "temporary" /var/log/mysqld.log | head -n 1 | awk -F " " '{print $NF}'
+      register: DEFAULT_ROOT_PASSWORD
